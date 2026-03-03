@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use App\Observers\PokemonObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+
+#[ObservedBy([PokemonObserver::class])]
 class Pokemon extends Model
 {
     use HasFactory;
