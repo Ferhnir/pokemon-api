@@ -18,6 +18,7 @@ class PokemonService
         return Cache::rememberForever(
             "pokemons",
             fn () => Pokemon::query()
+                ->select(['id', 'name', 'banned', 'created_by_me'])
                 ->notBanned()
                 ->get()
         );

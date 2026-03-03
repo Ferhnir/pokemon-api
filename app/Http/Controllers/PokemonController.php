@@ -9,11 +9,9 @@ use App\Http\Resources\PokemonResource;
 use App\Models\Pokemon;
 use App\Services\PokemonService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
-use function Pest\Laravel\json;
 
 class PokemonController extends Controller
 {
@@ -43,7 +41,12 @@ class PokemonController extends Controller
 
     public function store(StorePokemonRequest $request): PokemonResource
     {
-        $pokemon = Pokemon::query()->create($request->validated());
+        $pokemon = Pokemon::query()->create([
+            ...$request->validated(),
+            ...[
+                'created_by_me' => true
+            ]
+        ]);
 
         return new PokemonResource($pokemon);
     }
